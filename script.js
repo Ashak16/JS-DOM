@@ -4,59 +4,71 @@ let txt_input= document.getElementById("Product_names")
 let amt_input=document.getElementById("Amount_field")
 // console.log(amt_input);
 let add_btn=document.querySelector("#btn")
-// console.log(add_btn);
-let element=document.getElementsByTagName("h6")
-// console.log(element);
-
+let alert_msg=document.querySelector("p")
+let alert_msg2=document.querySelector(".in")
+let totalvalue=0;
+let amount=parseInt(amt_input.value)
 let fullform=document.forms.validation
-// console.log(fullform);
 
 add_btn.addEventListener("click",(event)=>{
     event.preventDefault()
-console.log("hi");
-    if(txt_input.value=="")
-    {
-        element[0].classList.add(".block")
-        alert("invalid")
-        
-    }
-    else if(amt_input.value=="")
-    {
-        alert("invalid")
-        return;
-    }
-   else if(txt_input.value=="" & amt_input.value==""){
-        alert("invalid")
-        return;
-    }
+
+if(txt_input.value=="")
+{
+  alert("please enter a value")
+}
+
+else if(amt_input.value==""){
+  alert("please enter a value")
+}
+ 
+else if(txt_input.value=="" && amt_input.value=="")
+{ 
+  alert("please enter a value")
+
+}
+
+  else{
+    
     let show=document.createElement("div")
     show.id="history_show"
 
     let items=document.createElement("P")
     items.className="product"
     items.innerHTML=txt_input.value
-   
+    
     let rupee=document.createElement("p")
     rupee.className="money"
     rupee.innerHTML=amt_input.value
 
-    let line=document.createElement("hr")
-    line.className="hr_line"
-
     let total=document.createElement("p")
-    total.classList="balance"
-    total.innerHTML=amt_input.value
-    
-    show.appendChild(items)
-    show.appendChild(rupee)
-    show.appendChild(line)
-    show.appendChild(total)
+    total.className="balance"
+    totalvalue += amount
+    total =`Total:${totalvalue}`
 
-    let pricelist=document.createElement("div")
-    pricelist.appendChild(show)
+   
+   let item_rupee=document.createElement("div")
+   item_rupee.id="both"
+   item_rupee.append(items,rupee)
 
-    let side=document.querySelector(".heading")
-    side.append(pricelist)
+   let del=document.createElement("i")
+   del.setAttribute("class","fa-solid fa-trash")
 
+    show.appendChild(item_rupee)
+    show.append(del,total)
+
+    let side=document.querySelector(".side_container")
+    side.append(show)
+     
+
+    txt_input.value = "";
+    amt_input.value = "";
+  
+     del.addEventListener("click",()=>{
+      // console.log("hi");
+      show.remove()
+   
+   })
+  }
 })
 
